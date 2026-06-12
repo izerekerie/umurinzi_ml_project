@@ -43,16 +43,17 @@ The system answers four research questions:
 
 | Resource | URL |
 |---|---|
-| **GitHub repo** | https://github.com/<your-username>/umurinzi *(replace once pushed)* |
+| **GitHub repo** | https://github.com/izerekerie/umurinzi_ml_project |
+| **Demo video** | https://youtu.be/L10J9Ie8IDE?si=BFBF2ZC2SGKSbF63 |
 | Live demo URL | https://umurinzi-web.onrender.com *(once deployed; see DEPLOYMENT.md)* |
-| Swagger UI | `<demo-url>/apidocs` |
-| Dissertation prose | `results/experiments/rq1_writeup.md`, Chapter 3/4 docx (not in repo) |
+| Swagger UI | `https://umurinzi-web.onrender.com/apidocs` |
+| Dissertation prose | `results/experiments/rq1_writeup.md` |
 
 To clone:
 
 ```bash
-git clone https://github.com/<your-username>/umurinzi.git
-cd umurinzi
+git clone https://github.com/izerekerie/umurinzi_ml_project.git
+cd umurinzi_ml_project
 ```
 
 ---
@@ -165,17 +166,10 @@ python scripts/precompute_sector_risk.py         # → results/application/secto
 ### 4.1 Figma mockups
 
 The visual design system was prototyped in Figma before any HTML was
-written. The mockups cover all five user-facing views.
+written. The mockups cover all five user-facing views — landing, login,
+citizen, forest manager, and admin.
 
-| Page | Figma URL |
-|---|---|
-| Landing (choose role) | https://www.figma.com/file/<your-id>/umurinzi-landing |
-| Login | https://www.figma.com/file/<your-id>/umurinzi-login |
-| Citizen view | https://www.figma.com/file/<your-id>/umurinzi-citizen |
-| Forest Manager dashboard | https://www.figma.com/file/<your-id>/umurinzi-manager |
-| Admin user management | https://www.figma.com/file/<your-id>/umurinzi-admin |
-
-*(Replace `<your-id>` placeholders with your actual Figma file IDs.)*
+**Figma file:** https://www.figma.com/design/mYF9We3btINQNbOsiuRl5I/Umurinzi?node-id=0-1
 
 Design system in use (replicated 1:1 in the Flask templates):
 
@@ -206,97 +200,41 @@ These are not circuit diagrams (Umurinzi is a software-only project — no
 hardware sensors), so the "circuit diagram" rubric line is interpreted as
 the **data-flow + ERD** combination above.
 
-### 4.3 App interface screenshots
+### 4.3 App interface
 
-Reference screenshots produced during development:
+A full walkthrough of all five views (landing, login, citizen, forest
+manager, admin) is in the **[demo video](https://youtu.be/L10J9Ie8IDE?si=BFBF2ZC2SGKSbF63)**.
 
-| Screenshot | File |
-|---|---|
-| Swagger UI (`/apidocs`) | `results/eda/swagger_ui.png` |
-| Landing page | *(capture from running app; add to `results/screenshots/`)* |
-| Citizen — upload + analyse | *(capture from running app)* |
-| Citizen — simulation slider | *(capture from running app)* |
-| Manager — choropleth + click-to-analyse | *(capture from running app)* |
-| Admin — user list + add-user modal | *(capture from running app)* |
-| Login page | *(capture from running app)* |
+Screenshots:
 
-To capture screenshots manually:
+<!-- insert screenshots here -->
 
-```bash
-python app_cadastral.py   # start the app
-# Visit each URL in a browser and use ⌘+Shift+4 (macOS) or your OS screenshot tool
-# Save into results/screenshots/01_landing.png, 02_citizen_upload.png, etc.
-```
 
 ---
 
 ## 5 · Deployment plan
 
-The full deployment plan with cost table, alternatives, and rollback
-procedures lives in **`DEPLOYMENT.md`**. The headline:
+Deployed on **Render** from the included `render.yaml` blueprint (Docker,
+gunicorn × 4 workers, Frankfurt region — closest to Rwanda).
 
-### Recommended platform: Render + Docker
+**Live URL:** https://umurinzi-web.onrender.com
 
-```
-Why            Auto-deploys on `git push`, free HTTPS + custom domain,
-                2 GB RAM tier handles the 600 MB boot footprint
-Cost (viva)    USD 0   (Render free tier; 30 s cold start documented)
-Cost (pilot)   USD 25/month   (Render Standard, always-on)
-Region          Frankfurt (closest to Rwanda)
-WSGI server     gunicorn × 4 workers, 90 s timeout (OCR is slow)
-```
+Deploy steps:
 
-### One-command local Docker test
+1. Push to GitHub.
+2. Render → **New → Blueprint** → connect this repo.
+3. Render reads `render.yaml` and builds the service (~6–8 min first build).
+4. Set the `SECRET_KEY` environment variable before going public.
+
+Local Docker test:
 
 ```bash
-docker build -t umurinzi:latest .
-docker run -p 5050:5050 -e PORT=5050 umurinzi:latest
+docker build -t umurinzi .
+docker run -p 5050:5050 -e PORT=5050 umurinzi
 # → http://localhost:5050
 ```
 
-### One-click cloud deploy
-
-```bash
-# After pushing to GitHub:
-# 1. Go to https://render.com → New → Blueprint
-# 2. Connect this repo
-# 3. Render reads render.yaml and provisions the service
-# 4. First build: ~6-8 minutes; subsequent: ~2-3 minutes
-# 5. Live URL: https://umurinzi-web.onrender.com
-```
-
-### Cost summary (matches the proposal's updated budget table)
-
-| Component | Plan | Cost |
-|---|---|---|
-| All ML tooling (GEE, scikit-learn, Flask, Tesseract, etc.) | Open-source | USD 0 |
-| Source code hosting | GitHub free tier | USD 0 |
-| Container registry | Docker Hub free / GHCR free | USD 0 |
-| **Viva-day demo hosting** | **Render Free (cold starts)** | **USD 0** |
-| Production demo hosting | Render Standard (2 GB RAM, always-on) | USD 25 / month |
-| Optional custom domain `umurinzi.rw` | RICTA registrar | ~USD 1 / month amortised |
-| **TOTAL — viva** | | **USD 0** |
-| **TOTAL — production pilot** | | **~USD 26 / month** |
-
-The full breakdown — including cheaper alternatives (Fly.io, Railway,
-DigitalOcean Droplet, Hetzner CPX11) — is in **`DEPLOYMENT.md`**.
-
-### Production checklist before the viva
-
-```
-[ ] Push to GitHub with .gitignore properly excluding drafts + utility scripts
-[ ] Confirm Docker image builds locally
-[ ] Connect repo to Render via render.yaml blueprint
-[ ] Wait for first build (~6-8 min)
-[ ] Set SECRET_KEY env var (NOT the hardcoded BSc demo key)
-[ ] Confirm /api/me returns 200 publicly
-[ ] Test full citizen flow end-to-end
-[ ] Test manager login + click-to-analyse end-to-end
-[ ] Test admin user-management end-to-end
-[ ] Set up UptimeRobot monitor (free) on /api/me
-[ ] Capture screenshots from the live URL for the dissertation
-[ ] Document the live URL in the dissertation results chapter
-```
+Full cost breakdown is in **`DEPLOYMENT.md`**.
 
 ---
 

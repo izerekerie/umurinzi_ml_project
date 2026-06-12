@@ -1,4 +1,4 @@
-"""TreeSight — Cadastral Plan Extractor (browser demo)
+"""Umurinzi — Cadastral Plan Extractor (browser demo)
 
 Run:    .venv/bin/python app_cadastral.py
 Open:   http://localhost:5050/
@@ -94,7 +94,7 @@ def find_nearest_pixels(lat: float, lng: float, k: int = 25):
 
 
 def analyse_parcel(lat: float, lng: float, area_ha: float = None) -> dict:
-    """Run the full TreeSight analysis for one parcel.
+    """Run the full Umurinzi analysis for one parcel.
 
     The model RUNS on any Rwanda location, but its prediction is only
     well-calibrated inside the Nyungwe training domain. We therefore return a
@@ -166,7 +166,7 @@ def analyse_parcel(lat: float, lng: float, area_ha: float = None) -> dict:
 
 
 # Forest-manager / admin accounts live in the same SQLite DB as alternatives.
-_USERS_DB = Path(__file__).parent / "data" / "database" / "treesight.db"
+_USERS_DB = Path(__file__).parent / "data" / "database" / "umurinzi.db"
 
 
 def _users_conn():
@@ -231,17 +231,17 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 # The raw OpenAPI 2.0 spec is served at   http://localhost:5050/apispec_1.json
 from flasgger import Swagger
 
-app.config["SWAGGER"] = {"title": "TreeSight API", "uiversion": 3}
+app.config["SWAGGER"] = {"title": "Umurinzi API", "uiversion": 3}
 swagger = Swagger(app, template={
     "swagger": "2.0",
     "info": {
-        "title": "TreeSight Rwanda — Deforestation Risk API",
+        "title": "Umurinzi Rwanda — Deforestation Risk API",
         "description": (
-            "Backend for the TreeSight MVP. Given a land parcel (from an uploaded "
+            "Backend for the Umurinzi MVP. Given a land parcel (from an uploaded "
             "land-title PDF/photo, manual coordinates, or a lat/lng), it predicts "
             "deforestation risk with a tuned Random Forest (Experiment D, F1≈0.79), "
             "forward-simulates a proposed cut, and returns vetted alternatives. "
-            "Final-year capstone — TreeSight Rwanda, ALU."
+            "Final-year capstone — Umurinzi Rwanda, ALU."
         ),
         "version": "1.0.0",
         "contact": {"email": "twagirinno@gmail.com"},
@@ -473,7 +473,7 @@ def manager():
 @app.post("/api/analyse-sector")
 @login_required
 def api_analyse_sector():
-    """Run the full TreeSight model on an arbitrary sector — used when the
+    """Run the full Umurinzi model on an arbitrary sector — used when the
     Forest Manager clicks a sector on the choropleth. Same pipeline as the
     citizen flow, just keyed by sector_id instead of GPS/draw/upload."""
     data = request.get_json() or {}
@@ -564,7 +564,7 @@ _CUT_RECENT = {}   # analysis_id → last full analyse result (for simulate to l
 
 # ── Lookup the seeded ALTERNATIVES SQLite table ────────────────────────
 import sqlite3
-_DB_PATH = Path(__file__).parent / "data" / "database" / "treesight.db"
+_DB_PATH = Path(__file__).parent / "data" / "database" / "umurinzi.db"
 if not _DB_PATH.exists():
     print(f"[boot]   ⚠ {_DB_PATH} not found — alternatives endpoint will return empty")
 else:
