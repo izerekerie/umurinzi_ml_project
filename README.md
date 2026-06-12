@@ -188,25 +188,15 @@ Muted text           #6b7280
 
 Five architecture diagrams documented in Chapter 3 of the dissertation:
 
-| Fig | Description | File reference |
-|---|---|---|
-| 3.1 | Two-pipeline system architecture (offline training + online inference) | Chapter 3 §3.X |
-| 3.2 | Use-case diagram (Citizen, Forest Manager, Admin) | Chapter 3 §3.X |
-| 3.3 | Data-pipeline sequence (GEE → labels → features → model) | Chapter 3 §3.X |
-| 3.4 | API request sequence (citizen upload → OCR → analysis) | Chapter 3 §3.X |
-| 3.5 | Entity-Relationship Diagram (USERS / SECTORS / PARCEL_ANALYSES / ALTERNATIVES) | Chapter 3 §3.X |
+
 
 Insert the exported diagram images below (from the Chapter 3 dissertation):
 
-<!-- Fig 3.1 — e.g. ![System architecture](results/diagrams/fig_3_1_architecture.png) -->
-<!-- Fig 3.2 — Use-case diagram -->
-<!-- Fig 3.3 — Data-pipeline sequence -->
-<!-- Fig 3.4 — API request sequence -->
-<!-- Fig 3.5 — Entity-Relationship Diagram -->
 
-These are not circuit diagrams (Umurinzi is a software-only project — no
-hardware sensors), so the "circuit diagram" rubric line is interpreted as
-the **data-flow + ERD** combination above.
+<img width="842" height="1251" alt="Group 1" src="https://github.com/user-attachments/assets/eef68975-f8ec-45e5-8deb-1a6f39c9d093" />
+
+<img width="1465" height="1629" alt="Frame" src="https://github.com/user-attachments/assets/91b4fbc2-1813-47af-9c55-cb0158dbf707" />
+ve.
 
 ### 4.3 App interface
 
