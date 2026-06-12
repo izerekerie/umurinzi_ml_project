@@ -208,6 +208,13 @@ manager, admin) is in the **[demo video](https://youtu.be/L10J9Ie8IDE?si=BFBF2ZC
 Screenshots:
 
 <!-- insert screenshots here -->
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 49 47" src="https://github.com/user-attachments/assets/09987a0a-ac6f-42ad-9f56-c89a53809d7e" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 27" src="https://github.com/user-attachments/assets/1f696abb-0e76-472c-ae82-f055e2c62bef" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 33" src="https://github.com/user-attachments/assets/0bba2a6d-a566-4934-8df0-8288f27bbccb" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 49" src="https://github.com/user-attachments/assets/af883271-8fc1-4486-b995-a38ef8f8beb3" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 56" src="https://github.com/user-attachments/assets/9f0375ba-74f9-4158-b37f-90019998b0a7" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 54 08" src="https://github.com/user-attachments/assets/cae91233-e30d-4509-8c79-e64e7d3f8b11" />
+<img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 54 28" src="https://github.com/user-attachments/assets/c3686af8-8fd0-493f-8482-07453af97a87" />
 
 
 ---
