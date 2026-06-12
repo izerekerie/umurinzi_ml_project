@@ -32,10 +32,10 @@ The system answers four research questions:
 
 | RQ | Question | Status |
 |---|---|---|
-| RQ1 | Optimal combination of S2 / S1 / SRTM features? | ✅ Answered — `results/experiments/rq1_writeup.md` |
-| RQ2 | Accuracy degradation at smallholder patch sizes? | ✅ Answered — `results/patch_size_analysis/` |
-| RQ3 | Does 500 m neighbourhood improve over parcel-only analysis? | 🟡 Implemented in app; writeup pending |
-| RQ4 | Out-of-sample validation across districts? | 🟡 Pending — needs RNLA real-coordinate sample |
+| RQ1 | Optimal combination of S2 / S1 / SRTM features? | Answered — `results/experiments/rq1_writeup.md` |
+| RQ2 | Accuracy degradation at smallholder patch sizes? | Answered — `results/patch_size_analysis/` |
+| RQ3 | Does 500 m neighbourhood improve over parcel-only analysis? | Implemented in app; writeup pending |
+| RQ4 | Out-of-sample validation across districts? | Pending — needs RNLA real-coordinate sample |
 
 ---
 
@@ -45,8 +45,8 @@ The system answers four research questions:
 |---|---|
 | **GitHub repo** | https://github.com/izerekerie/umurinzi_ml_project |
 | **Demo video** | https://youtu.be/L10J9Ie8IDE?si=BFBF2ZC2SGKSbF63 |
-| Live demo URL | https://umurinzi-web.onrender.com *(once deployed; see DEPLOYMENT.md)* |
-| Swagger UI | `https://umurinzi-web.onrender.com/apidocs` |
+| Live demo URL | *planned:* `https://umurinzi-web.onrender.com` *(not yet deployed — see §5)* |
+| Swagger UI | `http://localhost:5050/apidocs` *(when running locally)* |
 | Dissertation prose | `results/experiments/rq1_writeup.md` |
 
 To clone:
@@ -186,17 +186,13 @@ Muted text           #6b7280
 
 ### 4.2 Architecture diagrams
 
-Five architecture diagrams documented in Chapter 3 of the dissertation:
+Architecture diagrams documented in Chapter 3 of the dissertation. Umurinzi is
+a software-only system, so the "circuit diagram" requirement is met by the
+system data-flow and entity-relationship diagrams below.
 
+<img width="842" height="1251" alt="System architecture" src="https://github.com/user-attachments/assets/eef68975-f8ec-45e5-8deb-1a6f39c9d093" />
 
-
-Insert the exported diagram images below (from the Chapter 3 dissertation):
-
-
-<img width="842" height="1251" alt="Group 1" src="https://github.com/user-attachments/assets/eef68975-f8ec-45e5-8deb-1a6f39c9d093" />
-
-<img width="1465" height="1629" alt="Frame" src="https://github.com/user-attachments/assets/91b4fbc2-1813-47af-9c55-cb0158dbf707" />
-ve.
+<img width="1465" height="1629" alt="Data flow and ERD" src="https://github.com/user-attachments/assets/91b4fbc2-1813-47af-9c55-cb0158dbf707" />
 
 ### 4.3 App interface
 
@@ -205,7 +201,6 @@ manager, admin) is in the **[demo video](https://youtu.be/L10J9Ie8IDE?si=BFBF2ZC
 
 Screenshots:
 
-<!-- insert screenshots here -->
 <img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 49 47" src="https://github.com/user-attachments/assets/09987a0a-ac6f-42ad-9f56-c89a53809d7e" />
 <img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 27" src="https://github.com/user-attachments/assets/1f696abb-0e76-472c-ae82-f055e2c62bef" />
 <img width="1512" height="824" alt="Screenshot 2026-06-12 at 20 53 33" src="https://github.com/user-attachments/assets/0bba2a6d-a566-4934-8df0-8288f27bbccb" />
@@ -219,17 +214,23 @@ Screenshots:
 
 ## 5 · Deployment plan
 
-Deployed on **Render** from the included `render.yaml` blueprint (Docker,
-gunicorn × 4 workers, Frankfurt region — closest to Rwanda).
+**Status:** not yet deployed. The application runs locally today (see below);
+this section describes how it will be deployed.
 
-**Live URL:** https://umurinzi-web.onrender.com
+The app is a single Flask service that serves both the web pages and the REST
+API from one process, so it deploys as one web service — no separate frontend
+host is required. The target platform is **Render**, built from the included
+`Dockerfile` / `render.yaml` (Docker, gunicorn, Frankfurt region).
 
-Deploy steps:
+Planned URL once deployed: `https://umurinzi-web.onrender.com`.
 
-1. Push to GitHub.
-2. Render → **New → Blueprint** → connect this repo.
-3. Render reads `render.yaml` and builds the service (~6–8 min first build).
-4. Set the `SECRET_KEY` environment variable before going public.
+Planned steps:
+
+1. Push to GitHub (done).
+2. Render → **New → Web Service** → connect this repo.
+3. Render builds from the `Dockerfile` (~6–8 min first build).
+4. Add the `UMURINZI_SECRET` environment variable (Render can auto-generate it)
+   before the service is made public.
 
 Local Docker test:
 
