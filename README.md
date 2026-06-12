@@ -196,6 +196,14 @@ Five architecture diagrams documented in Chapter 3 of the dissertation:
 | 3.4 | API request sequence (citizen upload → OCR → analysis) | Chapter 3 §3.X |
 | 3.5 | Entity-Relationship Diagram (USERS / SECTORS / PARCEL_ANALYSES / ALTERNATIVES) | Chapter 3 §3.X |
 
+Insert the exported diagram images below (from the Chapter 3 dissertation):
+
+<!-- Fig 3.1 — e.g. ![System architecture](results/diagrams/fig_3_1_architecture.png) -->
+<!-- Fig 3.2 — Use-case diagram -->
+<!-- Fig 3.3 — Data-pipeline sequence -->
+<!-- Fig 3.4 — API request sequence -->
+<!-- Fig 3.5 — Entity-Relationship Diagram -->
+
 These are not circuit diagrams (Umurinzi is a software-only project — no
 hardware sensors), so the "circuit diagram" rubric line is interpreted as
 the **data-flow + ERD** combination above.
@@ -238,6 +246,17 @@ Local Docker test:
 ```bash
 docker build -t umurinzi .
 docker run -p 5050:5050 -e PORT=5050 umurinzi
+# → http://localhost:5050
+```
+
+Run locally **without Docker** (plain Python — see §3 for prerequisites):
+
+```bash
+python3.13 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python scripts/seed_users.py       # one-time: seed demo accounts
+python app_cadastral.py
 # → http://localhost:5050
 ```
 
